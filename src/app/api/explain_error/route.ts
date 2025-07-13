@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import openai from "@/lib/openai";
-import { parseErrorStack } from "@/lib/parser";
 
 export async function POST(req: NextRequest) {
   const { errorText } = await req.json();
@@ -10,29 +9,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Invalid input" }, { status: 400 });
   }
 
-  const { errorType, filePath, lineNumber } = parseErrorStack(errorText);
+  const prompt = `
+You are an expert programming assistant.
 
-  // Extract stack trace lines excluding the first error line
-  const stackLines = errorText
-    .split("\n")
-    .slice(1)
-    .map((line) => line.trim())
-    .join("\n");
+Analyze the following input. It could be:
+- A raw error message (from a terminal, stack trace, etc.)
+- A snippet of source code (from a file)
 
-  // Build detailed prompt
-  let prompt = `You are a programming assistant. Explain the error below to a beginner, including:\n
-- What the error means generally
-- What this specific error message says
-- Likely causes
-- How to fix it with examples\n\n`;
+Your job is:
 
-  prompt += "Error Message:\n";
-  prompt += `${errorType ?? "Error"}: ${errorText.split("\n")[0]}\n`;
+1. If it's an **error message**, explain it clearly to a beginner:
+   - What the error means in general
+   - What the specific message says
+   - Likely causes
+   - How to fix it (with examples)
 
-  if (filePath) prompt += `File: ${filePath}\n`;
-  if (lineNumber) prompt += `Line: ${lineNumber}\n`;
+2. If it's **valid code with no error**, reply:
+   "✅ No error found in this code."
+   Then provide 1–3 beginner-friendly tips to improve or optimize the code.
 
-  if (stackLines) prompt += `Stack trace:\n${stackLines}\n`;
+Only respond with what is needed. Be concise but helpful.
+
+---
+
+Input:
+${errorText.trim()}
+`;
 
   try {
     const chat = await openai.chat.completions.create({
@@ -40,8 +42,7 @@ export async function POST(req: NextRequest) {
       messages: [{ role: "user", content: prompt }],
     });
 
-    const explanation =
-      chat.choices[0]?.message?.content || "No explanation found.";
+    const explanation = chat.choices[0]?.message?.content || "No response generated.";
     return NextResponse.json({ explanation });
   } catch (error) {
     console.error("[OpenAI Error]", error);
