@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import openai from "@/lib/openai";
 
+const SECRET_KEY = process.env.NEXT_PUBLIC_ERRORSENSE_SECRET_KEY;
+
 export async function POST(req: NextRequest) {
+  const secret = req.headers.get("x-errorsense-secret");
+  if (!secret || secret !== SECRET_KEY) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   const { errorText } = await req.json();
 
   if (!errorText || typeof errorText !== "string") {
@@ -42,7 +49,8 @@ ${errorText.trim()}
       messages: [{ role: "user", content: prompt }],
     });
 
-    const explanation = chat.choices[0]?.message?.content || "No response generated.";
+    const explanation =
+      chat.choices[0]?.message?.content || "No response generated.";
     return NextResponse.json({ explanation });
   } catch (error) {
     console.error("[OpenAI Error]", error);

@@ -13,11 +13,14 @@ export default function HomePage() {
     setLoading(true);
     setExplanation("");
 
-    const res = await fetch("/api/explain_error", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ errorText }),
-    });
+  const res = await fetch("/api/explain_error", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-errorsense-secret": process.env.NEXT_PUBLIC_ERRORSENSE_SECRET_KEY || "",
+    },
+    body: JSON.stringify({ errorText }),
+  });
 
     const data = await res.json();
     setExplanation(data.explanation || "No explanation found.");
