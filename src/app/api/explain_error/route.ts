@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import openai from "@/lib/openai";
+import openai from "../../../lib/openai";
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_ERRORSENSE_SECRET_KEY;
 
@@ -17,53 +17,53 @@ export async function POST(req: NextRequest) {
   }
 
   const prompt = `
-You are ErrorSense, a helpful AI assistant that explains programming errors in simple terms.
+You are an expert programming assistant specialized in error detection and code analysis.
 
-Analyze this error and provide a clear, concise explanation in plain English:
+Carefully analyze the following selected text/code. It could be:
+- A runtime error message or stack trace
+- Source code with syntax errors
+- Source code with logical/runtime issues
+- Valid code with no errors
 
-Error: ${errorText.trim()}
+Your task:
 
-Respond with only a JSON object in this format:
-{
-  "explanation": "A clear, simple explanation of what this error means and how to fix it"
-}
+1. **If ANY error is found** (syntax, runtime, logical, or any other type):
+   - Clearly state "❌ ERROR DETECTED"
+   - Explain what type of error it is
+   - Describe what's wrong in simple terms
+   - Provide specific fix suggestions with examples
+   - Show corrected code if applicable
 
-Keep the explanation under 200 words and focus on practical solutions.
+2. **If NO errors are found**:
+   - Reply: "✅ NO ERROR FOUND"
+   - Provide 1-2 brief improvement suggestions (optional)
+
+Be thorough in your analysis. Check for:
+- Syntax errors (missing semicolons, brackets, quotes, etc.)
+- Runtime errors (undefined variables, type mismatches, etc.)
+- Logical errors (infinite loops, wrong conditions, etc.)
+- Common programming mistakes
+
+---
+
+Selected Text to Analyze:
+${errorText.trim()}
 `;
 
   try {
     const chat = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.3,
-      max_tokens: 500, // Limit response size for faster processing
     });
 
-    const raw = chat.choices[0]?.message?.content?.trim();
-    if (!raw) {
-      return NextResponse.json(
-        { explanation: "No explanation could be generated for this error." },
-        { status: 500 }
-      );
-    }
-
-    // Try to parse JSON, fallback to simple response
-    let parsed;
-    try {
-      parsed = JSON.parse(raw);
-    } catch (err) {
-      // If JSON parsing fails, return the raw text as explanation
-      console.warn("⚠️ Could not parse JSON, using raw text");
-      parsed = { explanation: raw };
-    }
-
-    return NextResponse.json(parsed);
+    const explanation =
+      chat.choices[0]?.message?.content || "No response generated.";
+    return NextResponse.json({ explanation });
   } catch (error) {
     console.error("[OpenAI Error]", error);
-    // Return a simple fallback response instead of error
-    return NextResponse.json({
-      explanation:
-        "Sorry, I couldn't analyze this error right now. Please check your error message and try again, or consult the documentation for your programming language.",
-    });
+    return NextResponse.json(
+      { message: "Something went wrong." },
+      { status: 500 }
+    );
   }
 }
