@@ -16,7 +16,7 @@ function Home() {
     setError("");
 
     try {
-      const res = await fetch("/api/explain_error", {
+      const res = await fetch("https://code-sense-nu.vercel.app/explain_error", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
