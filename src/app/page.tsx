@@ -1,17 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import ErrorAnalysis from "@/components/ErrorAnalysis";
 
 export default function HomePage() {
   const [errorText, setErrorText] = useState("");
-  const [explanation, setExplanation] = useState("");
+  const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleExplain = async () => {
     if (!errorText.trim()) return;
 
     setLoading(true);
-    setExplanation("");
+    setAnalysis(null);
+    setError("");
 
   const res = await fetch("/api/explain_error", {
     method: "POST",
@@ -22,9 +25,24 @@ export default function HomePage() {
     body: JSON.stringify({ errorText }),
   });
 
-    const data = await res.json();
-    setExplanation(data.explanation || "No explanation found.");
-    setLoading(false);
+    try {
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
+      const data = await res.json();
+      setAnalysis(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to analyze error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClear = () => {
+    setErrorText("");
+    setAnalysis(null);
+    setError("");
   };
 
   return (
@@ -49,36 +67,50 @@ export default function HomePage() {
           onChange={(e) => setErrorText(e.target.value)}
         />
 
-        <button
-          onClick={handleExplain}
-          disabled={loading || !errorText.trim()}
-          className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 shadow-lg hover:cursor-pointer"
-        >
-          {loading ? (
-            <div className="flex items-center justify-center space-x-2 hover:cursor-pointer">
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin hover:cursor-pointer"></div>
-              <span>Analyzing...</span>
-            </div>
-          ) : (
-            "🔍 Explain Error"
+        <div className="flex space-x-3">
+          <button
+            onClick={handleExplain}
+            disabled={loading || !errorText.trim()}
+            className="flex-1 sm:flex-none px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-xl hover:from-blue-700 hover:to-purple-700 disabled:from-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02] disabled:hover:scale-100 shadow-lg"
+          >
+            {loading ? (
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <span>Analyzing...</span>
+              </div>
+            ) : (
+              "🔍 Analyze Error"
+            )}
+          </button>
+          
+          {(analysis || error) && (
+            <button
+              onClick={handleClear}
+              className="px-6 py-3 bg-gray-700 text-gray-300 font-medium rounded-xl hover:bg-gray-600 transition-all duration-200"
+            >
+              Clear
+            </button>
           )}
-        </button>
+        </div>
       </div>
 
-      {/* Results Section */}
-      {explanation && (
-        <div className="w-full max-w-4xl mt-8 bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 shadow-2xl">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mr-3">
-              <span className="text-white text-sm">✓</span>
+      {/* Error Message */}
+      {error && (
+        <div className="w-full max-w-4xl mt-8 bg-red-900/20 backdrop-blur-sm rounded-2xl p-6 border border-red-700/50">
+          <div className="flex items-center space-x-3">
+            <span className="text-red-400 text-xl">⚠️</span>
+            <div>
+              <h3 className="text-red-400 font-medium">Analysis Failed</h3>
+              <p className="text-red-300 text-sm">{error}</p>
             </div>
-            <h2 className="text-xl font-semibold text-gray-100">AI Explanation</h2>
           </div>
-          <div className="bg-gray-900/50 rounded-xl p-6 border border-gray-700/30">
-            <pre className="whitespace-pre-wrap text-gray-300 leading-relaxed font-mono text-sm">
-              {explanation}
-            </pre>
-          </div>
+        </div>
+      )}
+
+      {/* Results Section */}
+      {analysis && (
+        <div className="mt-8">
+          <ErrorAnalysis data={analysis} />
         </div>
       )}
 
