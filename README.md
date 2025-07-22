@@ -31,7 +31,7 @@ But that’s not all: ErrorSense’s backend also powers a web version, so you c
 
 You can also use the same ErrorSense AI backend via a web interface or API:
 
-- Visit the deployed web app at: [Your Web URL here]  
+- Visit the deployed web app at: https://code-sense-nu.vercel.app/  
 - Send error messages or code snippets to the API endpoint for explanations  
 - Integrate the API in your own projects or webpages
 
