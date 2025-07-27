@@ -4,14 +4,9 @@
 
 But that's not all: ErrorSense is also powers a web version, so you can use it from any browser as a standalone programming assistant.
 
-## 🎥 Demo Video
+## 🎥 Demo
 
-<!-- Direct video file - Add your video to the assets folder -->
-<video width="800" controls>
-  <source src="./assets/demo.mp4" type="video/mp4">
-  <source src="./assets/demo.webm" type="video/webm">
-  Your browser does not support the video tag.
-</video>
+![ErrorSense Demo](./assets/demo.gif)
 
 *ErrorSense in action - Select code, press Ctrl+Shift+E, and get AI-powered explanations*
 
@@ -36,9 +31,11 @@ But that’s not all: ErrorSense’s backend also powers a web version, so you c
 ## 🛠️ Getting Started (VS Code Extension)
 
 1. Install the extension from the marketplace or clone this repo and run it locally.  
-2. Select an error message or copy an error from your terminal.  
+2. Select the code.  
 3. Click the “Explain Code button on the status bar or run the `ErrorSense: Explain Code` command.  
-4. See the explanation appear in the side panel.
+4. Or use the by default keyboard shortcut : `Ctrl + Alt + e`.
+5. See the explanation appear in the side panel.
+6. You can always customize the keyboard shortcut File > Preferences > Keyboard Shortcuts and type Errorsense.
 
 ---
 
