@@ -20,7 +20,8 @@ function Home() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-errorsense-secret": process.env.NEXT_PUBLIC_ERRORSENSE_SECRET_KEY || "",
+          "x-errorsense-secret":
+            process.env.NEXT_PUBLIC_ERRORSENSE_SECRET_KEY || "",
         },
         body: JSON.stringify({ errorText: errorText }),
       });
@@ -43,20 +44,27 @@ function Home() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8 pt-8">
-          <h1 className="text-5xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            🧠 ErrorSense
+          <h1 className="text-5xl font-bold mb-3 flex items-center justify-center gap-3">
+            <img
+              src="/errorsense-logo.png"
+              alt="ErrorSense Logo"
+              className="h-13 w-13 inline-block align-middle"
+            />
+            ErrorSense
           </h1>
-          <p className="text-gray-400 text-lg">AI-powered error explanation and debugging assistant</p>
+          <p className="text-gray-400 text-lg">
+            AI-powered code explanation and debugging assistant
+          </p>
         </div>
 
         {/* Input Section */}
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 shadow-2xl mb-8">
           <label className="block text-gray-300 text-sm font-medium mb-3">
-            Error Message
+            Code
           </label>
           <textarea
             className="w-full p-4 h-48 bg-gray-900/50 border border-gray-600 rounded-xl mb-6 text-gray-100 placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 resize-none"
-            placeholder="Paste your error message here and let AI explain what went wrong..."
+            placeholder="Paste your code here and let AI explain what went wrong..."
             value={errorText}
             onChange={(e) => setErrorText(e.target.value)}
           />
@@ -69,7 +77,7 @@ function Home() {
             >
               {loading ? "Analyzing..." : "🔍 Analyze Error"}
             </button>
-            
+
             {(analysis || error) && (
               <button
                 onClick={() => {
@@ -101,9 +109,13 @@ function Home() {
         {/* Results Display */}
         {analysis && (
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 shadow-2xl">
-            <h2 className="text-2xl font-bold mb-4 text-blue-400">🧠 Analysis Result</h2>
+            <h2 className="text-2xl font-bold mb-4 text-blue-400">
+              🧠 Analysis Result
+            </h2>
             <div className="bg-gray-900/50 rounded-xl p-6">
-              <p className="text-gray-100 leading-relaxed whitespace-pre-wrap">{analysis}</p>
+              <p className="text-gray-100 leading-relaxed whitespace-pre-wrap">
+                {analysis}
+              </p>
             </div>
           </div>
         )}

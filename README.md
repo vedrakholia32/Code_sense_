@@ -1,4 +1,20 @@
-# 🔍 ErrorSense
+# 🧠 ErrorSense
+
+**ErrorSense** is a VS Code extension that provides instant, AI-powered explanations for programming errors — right inside your editor. Select an error or copy it from your terminal, then let ErrorSense explain it clearly and help you fix it faster.
+
+But that's not all: ErrorSense's backend also powers a web version, so you can use it from any browser as a standalone programming assistant.
+
+## 🎥 Demo Video
+
+<!-- Replace with your actual video URL -->
+[![ErrorSense Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+
+*Click the image above to watch the demo video*
+
+<!-- Alternative: If you have a GIF, you can use this instead -->
+<!-- ![ErrorSense Demo](./assets/demo.gif) -->
+
+---rorSense
 
 **ErrorSense** is a VS Code extension that provides instant, beginner-friendly explanations for programming errors — right inside your editor. Select an error or copy it from your terminal, then let ErrorSense explain it clearly and help you fix it faster.
 
