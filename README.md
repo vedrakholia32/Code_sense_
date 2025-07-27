@@ -1,10 +1,10 @@
-# 🧠 ErrorSe---
+# ErrorSense
 
-## 🚀 Features**ErrorSense** is a VS Code extension that provides instant, AI-powered explanations for programming errors — right inside your editor. Select the  Code, then let ErrorSense explain it clearly and help you fix it faster.
+##  Features**ErrorSense** is a VS Code extension that provides instant, AI-powered explanations for programming errors — right inside your editor. Select the  Code, then let ErrorSense explain it clearly and help you fix it faster.
 
 But that's not all: ErrorSense is also powers a web version, so you can use it from any browser as a standalone programming assistant.
 
-## 🎥 Demo
+##  Demo
 
 ![ErrorSense Demo](./assets/demo.gif)
 
@@ -16,7 +16,7 @@ But that’s not all: ErrorSense’s backend also powers a web version, so you c
 
 ---
 
-## 🚀 Features
+##  Features
 
 - AI-powered explanations for error messages  
 - Works on selected code or clipboard text  
@@ -28,7 +28,7 @@ But that’s not all: ErrorSense’s backend also powers a web version, so you c
 
 ---
 
-## 🛠️ Getting Started (VS Code Extension)
+##  Getting Started (VS Code Extension)
 
 1. Install the extension from the marketplace or clone this repo and run it locally.  
 2. Select the code.  
@@ -39,7 +39,7 @@ But that’s not all: ErrorSense’s backend also powers a web version, so you c
 
 ---
 
-## 🌐 Using the Web Version
+##  Using the Web Version
 
 You can also use the same ErrorSense AI via a web interface:
 
@@ -48,7 +48,7 @@ You can also use the same ErrorSense AI via a web interface:
 
 ---
 
-## 📦 Development
+##  Development
 
 This project was bootstrapped with [Next.js](https://nextjs.org) and uses the [OpenAI API](https://openai.com/api/) for AI-powered explanations.
 
