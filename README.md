@@ -1,22 +1,21 @@
 # 🧠 ErrorSense
 
-**ErrorSense** is a VS Code extension that provides instant, AI-powered explanations for programming errors — right inside your editor. Select an error or copy it from your terminal, then let ErrorSense explain it clearly and help you fix it faster.
+**ErrorSense** is a VS Code extension that provides instant, AI-powered explanations for programming errors — right inside your editor. Select the  Code, then let ErrorSense explain it clearly and help you fix it faster.
 
-But that's not all: ErrorSense's backend also powers a web version, so you can use it from any browser as a standalone programming assistant.
+But that's not all: ErrorSense is also powers a web version, so you can use it from any browser as a standalone programming assistant.
 
 ## 🎥 Demo Video
 
-<!-- Replace with your actual video URL -->
-[![ErrorSense Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+<!-- Direct video file - Add your video to the assets folder -->
+<video width="800" controls>
+  <source src="./assets/demo.mp4" type="video/mp4">
+  <source src="./assets/demo.webm" type="video/webm">
+  Your browser does not support the video tag.
+</video>
 
-*Click the image above to watch the demo video*
+*ErrorSense in action - Select code, press Ctrl+Shift+E, and get AI-powered explanations*
 
-<!-- Alternative: If you have a GIF, you can use this instead -->
-<!-- ![ErrorSense Demo](./assets/demo.gif) -->
-
----rorSense
-
-**ErrorSense** is a VS Code extension that provides instant, beginner-friendly explanations for programming errors — right inside your editor. Select an error or copy it from your terminal, then let ErrorSense explain it clearly and help you fix it faster.
+---
 
 But that’s not all: ErrorSense’s backend also powers a web version, so you can use it from any browser as a standalone programming assistant.
 
@@ -38,18 +37,17 @@ But that’s not all: ErrorSense’s backend also powers a web version, so you c
 
 1. Install the extension from the marketplace or clone this repo and run it locally.  
 2. Select an error message or copy an error from your terminal.  
-3. Click the “Explain Error” button on the status bar or run the `ErrorSense: Explain Error` command.  
+3. Click the “Explain Code button on the status bar or run the `ErrorSense: Explain Code` command.  
 4. See the explanation appear in the side panel.
 
 ---
 
 ## 🌐 Using the Web Version
 
-You can also use the same ErrorSense AI backend via a web interface or API:
+You can also use the same ErrorSense AI via a web interface:
 
 - Visit the deployed web app at: https://code-sense-nu.vercel.app/  
-- Send error messages or code snippets to the API endpoint for explanations  
-- Integrate the API in your own projects or webpages
+- Send code snippets to the API endpoint for explanations  
 
 ---
 
