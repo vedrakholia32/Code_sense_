@@ -1,6 +1,6 @@
-# 🧠 ErrorSense
+# 🧠 ErrorSe---
 
-**ErrorSense** is a VS Code extension that provides instant, AI-powered explanations for programming errors — right inside your editor. Select the  Code, then let ErrorSense explain it clearly and help you fix it faster.
+## 🚀 Features**ErrorSense** is a VS Code extension that provides instant, AI-powered explanations for programming errors — right inside your editor. Select the  Code, then let ErrorSense explain it clearly and help you fix it faster.
 
 But that's not all: ErrorSense is also powers a web version, so you can use it from any browser as a standalone programming assistant.
 
@@ -33,7 +33,7 @@ But that’s not all: ErrorSense’s backend also powers a web version, so you c
 1. Install the extension from the marketplace or clone this repo and run it locally.  
 2. Select the code.  
 3. Click the “Explain Code button on the status bar or run the `ErrorSense: Explain Code` command.  
-4. Or use the by default keyboard shortcut : `Ctrl + Alt + e`.
+4. Or use the default keyboard shortcut: `Ctrl+Shift+E` (Mac: `Cmd+Shift+E`).
 5. See the explanation appear in the side panel.
 6. You can always customize the keyboard shortcut File > Preferences > Keyboard Shortcuts and type Errorsense.
 
